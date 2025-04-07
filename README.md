@@ -8,6 +8,7 @@ It supports:
 - ✅ YAML-based configuration
 - ✅ Fast execution (no `dotnet restore` required)
 - ✅ Easy integration into CI pipelines
+- ✅ Supports both traditional `<PackageReference>` and centralized `<PackageVersion>` via `Directory.Packages.props`.
 
 ---
 
@@ -25,7 +26,18 @@ Or reference it locally in your repo as a tool if preferred.
 ## 🚀 Usage
 
 ```bash
-nuget-warden [--config blocked-packages.yaml] [--project-dir ./src]
+nuget-warden --help
+```
+
+```bash
+Usage:
+  nuget-warden [options]
+
+Options:
+  --config <path>         Path to blocked-packages.yaml file [default: blocked-packages.yaml]
+  --project-dir <path>    Root directory to scan [default: current directory]
+  --mode <direct|central> Scan mode: direct .csproj or central Directory.Packages.props [default: direct]
+  --help                  Show help and usage information
 ```
 
 ### Common examples:
@@ -48,9 +60,9 @@ Define packages and allowed version ranges using NuGet-style syntax:
 ```yaml
 packages:
   - id: "Moq"
-    version: ">=4.20.0"           # Block any version >= 4.20.0
+    version: "[4.20.0,)"         # same as >= 4.20.0
   - id: "MassTransit"
-    version: ">=9.0.0"            # Block any version >= 9.0.0
+    version: "[9.0.0,)"          # same as >= 9.0.0
 ```
 
 You can use any valid [NuGet version range syntax](https://learn.microsoft.com/en-us/nuget/concepts/package-versioning#version-ranges).
@@ -63,6 +75,27 @@ You can use any valid [NuGet version range syntax](https://learn.microsoft.com/e
 4. Fails the build with helpful messages if blocked packages are found.
 
 > **Note: It does not scan transitive dependencies — only top-level ones declared in the project file.**
+
+### 🔀 Scan Modes
+You can control how nuget-warden scans dependencies using the --mode option:
+
+```bash
+--mode <direct|central>
+```
+
+`direct` (*default*) – scans all `.csproj` files for direct `<PackageReference>` declarations.
+
+`central` – scans a `Directory.Packages.props` file (for projects using Central Package Management).
+
+**Examples:**
+
+```bash
+# Scan direct references in all .csproj files
+nuget-warden --mode direct
+
+# Scan central package versions from Directory.Packages.props
+nuget-warden --mode central --project-dir ./src
+```
 
 ## ✅ Example Output
 
