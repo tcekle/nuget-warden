@@ -1,0 +1,16 @@
+<Project>
+	<ItemGroup>
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+		<PackageReference Include="MinVer" Version="4.3.0" PrivateAssets="All" />
+	</ItemGroup>
+
+    <PropertyGroup>
+    	<CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\NugetWarden.ruleset</CodeAnalysisRuleSet>
+    	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<Authors>Taylor Ekle</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/tcekle/nuget-warden</RepositoryUrl>
+		<MinVerTagPrefix>v</MinVerTagPrefix>
+		<MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
+  	</PropertyGroup>
+</Project>
