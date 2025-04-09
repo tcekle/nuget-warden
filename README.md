@@ -14,11 +14,11 @@ It supports:
 
 ## 📦 Installation
 
-Pack and install as a global tool:
+Install as a global tool:
 
 ```bash
-dotnet pack -c Release
-dotnet tool install --global --add-source ./bin/Release nuget-warden
+dotnet tool install nuget-warden
+
 ```
 
 Or reference it locally in your repo as a tool if preferred.
