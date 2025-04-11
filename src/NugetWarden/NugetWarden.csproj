@@ -9,6 +9,7 @@
     <PackageId>nuget-warden</PackageId>
     <ToolCommandName>nuget-warden</ToolCommandName>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Scans for blocked NuGet packages in project files</Description>
   </PropertyGroup>
 
   <ItemGroup>
